@@ -75,7 +75,8 @@ def coast(gen, world):
                 if s1 != 0:
                     world[i][j] = 3
             else:
-                s2 = sum_living_points(world, i, j, 1) + sum_living_points(world, i, j, 2)
+                s2 = sum_living_points(world, i, j, 1)
+                s2 += sum_living_points(world, i, j, 2)
                 if s2 != 0 and randint(0, 3) == 1:
                     world[i][j] = 3
     return world
