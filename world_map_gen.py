@@ -82,21 +82,27 @@ def coast(gen, world):
 
 
 GEN = 100
-#N, M = map(int, input().split())
 N = 50
 M = 100
-#сами острова
-world = [[randint(0, 1) for j in range(M)] for i in range(N)]
-world = generation_world(GEN, world, 0, 1)
+def gen_all(GEN = 100, N = 50, M = 100):
+    #сами острова
+    world = [[randint(0, 1) for j in range(M)] for i in range(N)]
+    world = generation_world(GEN, world, 0, 1)
+    #леса
+    world = forest_generation(GEN, world)
+    #берега
+    world = coast(GEN, world)
+    #стены
+    world = walls(world)
+    
+    #запись в файл (вечная)
+    f = open('map_world.txt', 'w')
+    for i in range(N):
+        for j in range(M):
+            f.write(str(world[i][j]))
+        f.write('\n')
+    f.close()
 
-#леса
-world = forest_generation(GEN, world)
-
-#берега
-world = coast(GEN, world)
-
-#стены
-world = walls(world)
 '''
 #прорисовка на консоль (временная)
 for i in range(N):
@@ -113,14 +119,9 @@ for i in range(N):
             print('H', end='')
     print()
 '''
-#запись в файл (вечная)
-f = open('map_world.txt', 'w')
-for i in range(N):
-    for j in range(M):
-        f.write(str(world[i][j]))
-    f.write('\n')
-f.close()
 '''
 забавный факт:
 правила клеточного автомата день ночь очень хорошо подходят для генерации мира
 '''
+if __name__ == "__main__":
+    print("This module is not for direct call!")
