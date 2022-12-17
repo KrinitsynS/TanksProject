@@ -255,7 +255,12 @@ for _ in range(50):
 
 bonusTimer = 180
 
+menu = True#затычка
+
 play = True
+#main_menu(menu, play)
+
+
 while play:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
