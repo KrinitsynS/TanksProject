@@ -1,6 +1,7 @@
 import pygame
 from random import randint
 
+from menu import *
 pygame.init()
 
 WIDTH, HEIGHT = 800, 600
@@ -11,7 +12,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 fontUI = pygame.font.Font(None, 30)
-
+'''
 imgBrick = pygame.image.load('images/block_brick.png')
 imgTanks = [
     pygame.image.load('images/tank1.png'),
@@ -252,20 +253,19 @@ for _ in range(50):
         if not fined: break
 
     Block(x, y, TILE)
-
+'''
 bonusTimer = 180
 
-menu = True#затычка
-
-play = True
-#main_menu(menu, play)
+menu = True
+play = False
+menu, play = main_menu(menu, play)
 
 
 while play:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             play = False
-
+    '''
     keys = pygame.key.get_pressed()
 
     if bonusTimer > 0:
@@ -282,7 +282,7 @@ while play:
     for bullet in bullets: bullet.draw()
     for obj in objects: obj.draw()
     ui.draw()
-
+    '''
     pygame.display.update()
     clock.tick(FPS)
 
