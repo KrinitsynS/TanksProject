@@ -124,5 +124,3 @@ for i in range(N):
 забавный факт:
 правила клеточного автомата день ночь очень хорошо подходят для генерации мира
 '''
-if __name__ == "__main__":
-    print("This module is not for direct call!")

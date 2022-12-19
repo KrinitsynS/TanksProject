@@ -1,19 +1,19 @@
 import pygame
 from random import randint
 
+from world_map_gen import *
 from menu import *
 pygame.init()
 
-WIDTH, HEIGHT = 800, 600
 FPS = 60
-TILE = 32
+TILE = 16
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 fontUI = pygame.font.Font(None, 30)
 
-imgBrick = pygame.image.load('images/block_brick.png')
+imgBrick = pygame.image.load('images/images_map/block_brick.png')
 imgTanks = [
     pygame.image.load('images/tank1.png'),
     pygame.image.load('images/tank2.png'),
@@ -236,39 +236,25 @@ class Bonus:
 
 
 
-'''
-for _ in range(50):
-    while True:
-        x = randint(0, WIDTH // TILE - 1) * TILE
-        y = randint(1, HEIGHT // TILE - 1) * TILE
-        rect = pygame.Rect(x, y, TILE, TILE)
-        fined = False
-        for obj in objects:
-            if rect.colliderect(obj.rect): fined = True
-        if not fined: break
-    Block(x, y, TILE)
-'''
 last_color = ""
 while True:
     bullets = []
     objects = []
-    Tank('blue', 100, 275, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
-    Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
-    ui = UI()
-    '''
-    for _ in range(50):
-        while True:
-            x = randint(0, WIDTH // TILE - 1) * TILE
-            y = randint(1, HEIGHT // TILE - 1) * TILE
-            rect = pygame.Rect(x, y, TILE, TILE)
-            fined = False
-            for obj in objects:
-                if rect.colliderect(obj.rect): fined = True
-            if not fined: break
-        Block(x, y, TILE)
-    '''
-    bonusTimer = 180
+    Tank('blue', 300, HEIGHT // 2, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
+    Tank('red', WIDTH - 300, HEIGHT // 2, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
     
+    
+    gen_all(50, WIDTH // TILE, HEIGHT // TILE)
+    with open('map_world.txt', 'r') as f:
+        n = 0
+        for s in f.readlines():
+            for m in range(len(s) - 1):
+                k = int(s[m])
+                if k == 4:
+                    Block(n * TILE, m * TILE, TILE)
+            n += 1
+    bonusTimer = 180
+    ui = UI()
     
     menu = True
     play = False
@@ -306,5 +292,7 @@ while True:
                 last_color = objectx.color
         if tanks < 2:
             play = False
+        else:
+            last_color = ""
 
 pygame.quit()
