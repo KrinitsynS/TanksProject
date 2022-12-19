@@ -7,8 +7,7 @@ BLACK = (0, 0, 0)
 YELLOW = 0xFFC91F
 RED = 0xFF0000
 WIDTH, HEIGHT = 800, 600
-
-def main_menu(menu, play):
+def main_menu(menu, play, last_color = ""):
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     keys = ['start', 'authors', 'quit']
     item_keys = 0
@@ -31,7 +30,10 @@ def main_menu(menu, play):
     place3_e = text3_e.get_rect(center=(WIDTH // 2, 150))
     
     text4 = font.render('semen and cumstantin', True, YELLOW)
-    place4 = text3.get_rect(center=(WIDTH // 2 - 200, 250))
+    place4 = text4.get_rect(center=(WIDTH // 2, 250))
+    
+    text5 = font.render(last_color + " win", True, YELLOW)
+    place5 = text5.get_rect(center=(WIDTH // 2, 350))
     F = False
     while menu:
         screen.fill(BLACK)
@@ -80,5 +82,7 @@ def main_menu(menu, play):
             screen.blit(text3_e, place3_e)
         if F:
             screen.blit(text4, place4)
+        if last_color != '':
+            screen.blit(text5, place5)
         pygame.display.update()
 

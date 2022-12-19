@@ -240,7 +240,7 @@ objects = []
 Tank('blue', 100, 275, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
 Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
 ui = UI()
-
+'''
 for _ in range(50):
     while True:
         x = randint(0, WIDTH // TILE - 1) * TILE
@@ -251,39 +251,46 @@ for _ in range(50):
             if rect.colliderect(obj.rect): fined = True
 
         if not fined: break
-
     Block(x, y, TILE)
-
+'''
 bonusTimer = 180
+last_color = ""
+while True:
+    menu = True
+    play = False
+    menu, play = main_menu(menu, play, last_color)
+    if not play:
+        break
+    last_color = ""
+    while play:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                play = False
+        keys = pygame.key.get_pressed()
 
-menu = True
-play = False
-menu, play = main_menu(menu, play)
+        if bonusTimer > 0:
+            bonusTimer -= 1
+        else:
+            Bonus(randint(50, WIDTH - 50), randint(50, HEIGHT - 50), randint(0, len(imgBonuses) - 1))
+            bonusTimer = randint(120, 240)
 
+        for bullet in bullets: bullet.update()
+        for obj in objects: obj.update()
+        ui.update()
 
-while play:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        window.fill('black')
+        for bullet in bullets: bullet.draw()
+        for obj in objects: obj.draw()
+        ui.draw()
+        pygame.display.update()
+        clock.tick(FPS)
+        tanks = 0
+        last_color = ""
+        for objectx in objects:
+            if type(objectx) == Tank:
+                tanks += 1
+                last_color = objectx.color
+        if tanks < 2:
             play = False
-    '''
-    keys = pygame.key.get_pressed()
-
-    if bonusTimer > 0:
-        bonusTimer -= 1
-    else:
-        Bonus(randint(50, WIDTH - 50), randint(50, HEIGHT - 50), randint(0, len(imgBonuses) - 1))
-        bonusTimer = randint(120, 240)
-
-    for bullet in bullets: bullet.update()
-    for obj in objects: obj.update()
-    ui.update()
-
-    window.fill('black')
-    for bullet in bullets: bullet.draw()
-    for obj in objects: obj.draw()
-    ui.draw()
-    '''
-    pygame.display.update()
-    clock.tick(FPS)
 
 pygame.quit()
