@@ -235,11 +235,7 @@ class Bonus:
             window.blit(self.image, self.rect)
 
 
-bullets = []
-objects = []
-Tank('blue', 100, 275, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
-Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
-ui = UI()
+
 '''
 for _ in range(50):
     while True:
@@ -249,13 +245,31 @@ for _ in range(50):
         fined = False
         for obj in objects:
             if rect.colliderect(obj.rect): fined = True
-
         if not fined: break
     Block(x, y, TILE)
 '''
-bonusTimer = 180
 last_color = ""
 while True:
+    bullets = []
+    objects = []
+    Tank('blue', 100, 275, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
+    Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
+    ui = UI()
+    '''
+    for _ in range(50):
+        while True:
+            x = randint(0, WIDTH // TILE - 1) * TILE
+            y = randint(1, HEIGHT // TILE - 1) * TILE
+            rect = pygame.Rect(x, y, TILE, TILE)
+            fined = False
+            for obj in objects:
+                if rect.colliderect(obj.rect): fined = True
+            if not fined: break
+        Block(x, y, TILE)
+    '''
+    bonusTimer = 180
+    
+    
     menu = True
     play = False
     menu, play = main_menu(menu, play, last_color)
