@@ -136,7 +136,7 @@ class Tank:
             objects.remove(self)
             print(self.color, 'dead')
 
-
+'down there was the bullet class'
 class Bullet:
     def __init__(self, parent, px, py, dx, dy, damage):
         bullets.append(self)
@@ -163,7 +163,7 @@ class Bullet:
     def draw(self):
         pygame.draw.circle(window, 'yellow', (self.px, self.py), 2)
 
-
+'down there was a Bang class'
 class Bang:
     def __init__(self, px, py):
         objects.append(self)
@@ -181,7 +181,7 @@ class Bang:
         rect = image.get_rect(center=(self.px, self.py))
         window.blit(image, rect)
 
-
+'block class'
 class Block:
     def __init__(self, px, py, size):
         objects.append(self)
@@ -200,7 +200,7 @@ class Block:
         self.hp -= value
         if self.hp <= 0: objects.remove(self)
 
-
+'Bonus class'
 class Bonus:
     def __init__(self, px, py, bonusNum):
         objects.append(self)
