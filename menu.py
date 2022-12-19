@@ -10,7 +10,7 @@ WIDTH, HEIGHT = 800, 600
 
 def main_menu(menu, play):
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    keys = ['start', 'settings', 'quit']
+    keys = ['start', 'authors', 'quit']
     item_keys = 0
     active_key = 'start'
     font = pygame.font.Font(None, 72)
@@ -20,8 +20,8 @@ def main_menu(menu, play):
     place1 = text1.get_rect(center=(WIDTH // 2, 50))
     place1_e = text1_e.get_rect(center=(WIDTH // 2, 50))
     
-    text2 = font.render('settings', True, YELLOW)
-    text2_e = font.render('settings', True, RED)
+    text2 = font.render('authors', True, YELLOW)
+    text2_e = font.render('authors', True, RED)
     place2 = text2.get_rect(center=(WIDTH // 2, 100))
     place2_e = text2_e.get_rect(center=(WIDTH // 2, 100))
     
@@ -30,6 +30,9 @@ def main_menu(menu, play):
     place3 = text3.get_rect(center=(WIDTH // 2, 150))
     place3_e = text3_e.get_rect(center=(WIDTH // 2, 150))
     
+    text4 = font.render('semen and cumstantin', True, YELLOW)
+    place4 = text3.get_rect(center=(WIDTH // 2 - 200, 250))
+    F = False
     while menu:
         screen.fill(BLACK)
         buttons = pygame.key.get_pressed()
@@ -52,14 +55,15 @@ def main_menu(menu, play):
                     if active_key == 'start':
                         menu = False
                         play = True
-                        print(active_key)
                         return menu, play
-                    #elif active_key == 'settings':
-                    #    continue
+                    elif active_key == 'authors':
+                        if F:
+                            F = False
+                        else:
+                            F = True
                     elif active_key == 'quit':
                         menu = False
                         play = False
-                        print(active_key)
                         return menu, play
         
         if item_keys == 0:
@@ -74,5 +78,7 @@ def main_menu(menu, play):
             screen.blit(text1, place1)
             screen.blit(text2, place2)
             screen.blit(text3_e, place3_e)
+        if F:
+            screen.blit(text4, place4)
         pygame.display.update()
 
