@@ -12,7 +12,7 @@ window = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 
 fontUI = pygame.font.Font(None, 30)
-'''
+
 imgBrick = pygame.image.load('images/block_brick.png')
 imgTanks = [
     pygame.image.load('images/tank1.png'),
@@ -64,7 +64,7 @@ class UI:
                 window.blit(text, rect)
                 i += 1
 
-
+'Here was the Tank class,'
 class Tank:
     def __init__(self, color, px, py, direct, keyList):
         objects.append(self)
@@ -238,7 +238,7 @@ class Bonus:
 bullets = []
 objects = []
 Tank('blue', 100, 275, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
-Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_KP_ENTER))
+Tank('red', 650, 275, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
 ui = UI()
 
 for _ in range(50):
@@ -253,7 +253,7 @@ for _ in range(50):
         if not fined: break
 
     Block(x, y, TILE)
-'''
+
 bonusTimer = 180
 
 menu = True
