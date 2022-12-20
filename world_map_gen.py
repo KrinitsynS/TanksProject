@@ -42,7 +42,7 @@ def generation_world(gen, world, k1, k2):
     return world
 
 
-def walls(world, frequency = 15):
+def walls(world, frequency = 20):
     for i in range(len(world) - 8):
         for j in range(len(world[0]) - 8):
             if world[i][j] == 1:
