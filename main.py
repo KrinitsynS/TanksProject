@@ -126,12 +126,6 @@ class Tank:
         for obj in objects:
             if obj != self and (obj.type == 'block' or obj.type == 'forest') and self.rect.colliderect(obj.rect):
                 self.rect.topleft = oldX, oldY
-            '''
-            elif obj != self and obj.type == 'water' and (self.rect.x - obj.rect.x <= TILE and self.rect.y - obj.rect.y <= TILE):
-                self.resist = 1
-            elif obj != self and obj.type != 'tank':
-                self.resist = 2
-            '''
         if keys[self.keySHOT] and self.shotTimer == 0:
             dx = DIRECTS[self.direct][0] * self.bulletSpeed
             dy = DIRECTS[self.direct][1] * self.bulletSpeed
