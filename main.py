@@ -14,6 +14,11 @@ clock = pygame.time.Clock()
 fontUI = pygame.font.Font(None, 30)
 
 imgBrick = pygame.image.load('images/images_map/block_brick.png')
+imgWater = pygame.image.load('images/images_map/block_water.png')
+imgForest = pygame.image.load('images/images_map/block_forest.png')
+imgSand = pygame.image.load('images/images_map/block_sand.png')
+imgGrass = pygame.image.load('images/images_map/block_grass.png')
+
 imgTanks = [
     pygame.image.load('images/tank1.png'),
     pygame.image.load('images/tank2.png'),
@@ -116,7 +121,7 @@ class Tank:
             self.direct = 2
 
         for obj in objects:
-            if obj != self and obj.type == 'block' and self.rect.colliderect(obj.rect):
+            if obj != self and (obj.type == 'block' or obj.type == 'forest') and self.rect.colliderect(obj.rect):
                 self.rect.topleft = oldX, oldY
 
         if keys[self.keySHOT] and self.shotTimer == 0:
@@ -153,7 +158,7 @@ class Bullet:
             bullets.remove(self)
         else:
             for obj in objects:
-                if obj != self.parent and obj.type != 'bang' and obj.type != 'bonus':
+                if obj != self.parent and obj.type != 'bang' and obj.type != 'bonus' and obj.type != 'water' and obj.type != 'sand':
                     if obj.rect.collidepoint(self.px, self.py):
                         obj.damage(self.damage)
                         bullets.remove(self)
@@ -181,11 +186,11 @@ class Bang:
         rect = image.get_rect(center=(self.px, self.py))
         window.blit(image, rect)
 
-'block class'
+'blocks clases'
 class Block:
-    def __init__(self, px, py, size):
+    def __init__(self, px, py, size, type_x):
         objects.append(self)
-        self.type = 'block'
+        self.type = type_x
 
         self.rect = pygame.Rect(px, py, size, size)
         self.hp = 1
@@ -193,8 +198,8 @@ class Block:
     def update(self):
         pass
 
-    def draw(self):
-        window.blit(imgBrick, self.rect)
+    def draw(self, img):
+        window.blit(img, self.rect)
 
     def damage(self, value):
         self.hp -= value
@@ -250,8 +255,14 @@ while True:
         for s in f.readlines():
             for m in range(len(s) - 1):
                 k = int(s[m])
-                if k == 4:
-                    Block(n * TILE, m * TILE, TILE)
+                if k == 0:
+                    Block(n * TILE, m * TILE, TILE, 'water')
+                elif k == 2:
+                    Block(n * TILE, m * TILE, TILE, 'forest')
+                elif k == 3:
+                    Block(n * TILE, m * TILE, TILE, 'sand')
+                elif k == 4:
+                    Block(n * TILE, m * TILE, TILE, 'block')
             n += 1
     bonusTimer = 180
     ui = UI()
@@ -279,11 +290,22 @@ while True:
         ui.update()
 
         window.fill('black')
+        window.blit(imgGrass, pygame.Rect(0, 0, WIDTH, HEIGHT))
+        
+        for obj in objects:
+            if type(obj) == Block:
+                if obj.type == 'water':
+                    obj.draw(imgWater)
+                elif obj.type == 'forest':
+                    obj.draw(imgForest)
+                elif obj.type == 'sand':
+                    obj.draw(imgSand)
+                elif obj.type == 'block':
+                    obj.draw(imgBrick)
         for bullet in bullets: bullet.draw()
-        for obj in objects: obj.draw()
-        ui.draw()
-        pygame.display.update()
-        clock.tick(FPS)
+        for obj in objects:
+            if type(obj) != Block:
+                obj.draw()
         tanks = 0
         last_color = ""
         for objectx in objects:
@@ -294,5 +316,9 @@ while True:
             play = False
         else:
             last_color = ""
+        ui.draw()
+        pygame.display.update()
+        clock.tick(FPS)
+        print(clock.get_fps())
 
 pygame.quit()

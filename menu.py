@@ -6,7 +6,7 @@ pygame.init()
 BLACK = (0, 0, 0)
 YELLOW = 0xFFC91F
 RED = 0xFF0000
-WIDTH, HEIGHT = 1200, 800
+WIDTH, HEIGHT = 1536, 768
 def main_menu(menu, play, last_color = ""):
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
     keys = ['start', 'authors', 'quit']
