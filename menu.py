@@ -6,10 +6,10 @@ pygame.init()
 BLACK = (0, 0, 0)
 YELLOW = 0xFFC91F
 RED = 0xFF0000
-WIDTH, HEIGHT = 1536, 768
+WIDTH, HEIGHT = 1296, 720
 def main_menu(menu, play, last_color = ""):
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
-    keys = ['start', 'authors', 'quit']
+    keys = ['start', 'credits', 'quit']
     item_keys = 0
     active_key = 'start'
     font = pygame.font.Font(None, 72)
@@ -19,8 +19,8 @@ def main_menu(menu, play, last_color = ""):
     place1 = text1.get_rect(center=(WIDTH // 2, 50))
     place1_e = text1_e.get_rect(center=(WIDTH // 2, 50))
     
-    text2 = font.render('authors', True, YELLOW)
-    text2_e = font.render('authors', True, RED)
+    text2 = font.render('credits', True, YELLOW)
+    text2_e = font.render('credits', True, RED)
     place2 = text2.get_rect(center=(WIDTH // 2, 100))
     place2_e = text2_e.get_rect(center=(WIDTH // 2, 100))
     
@@ -29,7 +29,7 @@ def main_menu(menu, play, last_color = ""):
     place3 = text3.get_rect(center=(WIDTH // 2, 150))
     place3_e = text3_e.get_rect(center=(WIDTH // 2, 150))
     
-    text4 = font.render('semen and cumstaintin', True, YELLOW)
+    text4 = font.render('Semyon and Konstantin, B02-211', True, YELLOW)
     place4 = text4.get_rect(center=(WIDTH // 2, 250))
     
     text5 = font.render(last_color + " win", True, YELLOW)
@@ -58,7 +58,7 @@ def main_menu(menu, play, last_color = ""):
                         menu = False
                         play = True
                         return menu, play
-                    elif active_key == 'authors':
+                    elif active_key == 'credits':
                         if F:
                             F = False
                         else:
