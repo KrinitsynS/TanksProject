@@ -92,6 +92,7 @@ class Tank:
         self.keyDOWN = keyList[3]
         self.keySHOT = keyList[4]
 
+        self.resist = 2
         self.rank = 0
         self.image = pygame.transform.rotate(imgTanks[self.rank], -self.direct * 90)
         self.rect = self.image.get_rect(center=self.rect.center)
@@ -108,22 +109,27 @@ class Tank:
 
         oldX, oldY = self.rect.topleft
         if keys[self.keyLEFT]:
-            self.rect.x -= self.moveSpeed
+            self.rect.x -= self.moveSpeed * self.resist
             self.direct = 3
         elif keys[self.keyRIGHT]:
-            self.rect.x += self.moveSpeed
+            self.rect.x += self.moveSpeed * self.resist
             self.direct = 1
         elif keys[self.keyUP]:
-            self.rect.y -= self.moveSpeed
+            self.rect.y -= self.moveSpeed * self.resist
             self.direct = 0
         elif keys[self.keyDOWN]:
-            self.rect.y += self.moveSpeed
+            self.rect.y += self.moveSpeed * self.resist
             self.direct = 2
 
         for obj in objects:
             if obj != self and (obj.type == 'block' or obj.type == 'forest') and self.rect.colliderect(obj.rect):
                 self.rect.topleft = oldX, oldY
-
+            '''
+            elif obj != self and obj.type == 'water' and (self.rect.x - obj.rect.x <= TILE and self.rect.y - obj.rect.y <= TILE):
+                self.resist = 1
+            elif obj != self and obj.type != 'tank':
+                self.resist = 2
+            '''
         if keys[self.keySHOT] and self.shotTimer == 0:
             dx = DIRECTS[self.direct][0] * self.bulletSpeed
             dy = DIRECTS[self.direct][1] * self.bulletSpeed
@@ -140,7 +146,6 @@ class Tank:
         self.hp -= value
         if self.hp <= 0:
             objects.remove(self)
-            print(self.color, 'dead')
 
 'down there was the bullet class'
 class Bullet:
@@ -321,6 +326,6 @@ while True:
         ui.draw()
         pygame.display.update()
         clock.tick(FPS)
-
+        #print(clock.get_fps())
 
 pygame.quit()

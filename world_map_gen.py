@@ -105,22 +105,6 @@ def gen_all(GEN = 100, N = 50, M = 100):
     f.close()
 
 '''
-#прорисовка на консоль (временная)
-for i in range(N):
-    for j in range(M):
-        if world[i][j] == 0:#вода
-            print(' ', end='')
-        elif world[i][j] == 1:#поле
-            print('█', end='')
-        elif world[i][j] == 2:#лес
-            print('*', end='')
-        elif world[i][j] == 3:#песок
-            print('▓', end='')
-        elif world[i][j] == 4:#стены
-            print('H', end='')
-    print()
-'''
-'''
 забавный факт:
 правила клеточного автомата день ночь очень хорошо подходят для генерации мира
 '''
