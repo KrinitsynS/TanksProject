@@ -5,7 +5,7 @@ from world_map_gen import *
 from menu import *
 pygame.init()
 
-FPS = 60
+FPS = 30
 TILE = 16
 
 window = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -289,7 +289,6 @@ while True:
         for obj in objects: obj.update()
         ui.update()
 
-        window.fill('black')
         window.blit(imgGrass, pygame.Rect(0, 0, WIDTH, HEIGHT))
         
         for obj in objects:
@@ -303,15 +302,14 @@ while True:
                 elif obj.type == 'block':
                     obj.draw(imgBrick)
         for bullet in bullets: bullet.draw()
+        tanks = 0
+        last_color = ""
         for obj in objects:
             if type(obj) != Block:
                 obj.draw()
-        tanks = 0
-        last_color = ""
-        for objectx in objects:
-            if type(objectx) == Tank:
+            if type(obj) == Tank:
                 tanks += 1
-                last_color = objectx.color
+                last_color = obj.color
         if tanks < 2:
             play = False
         else:
@@ -319,6 +317,6 @@ while True:
         ui.draw()
         pygame.display.update()
         clock.tick(FPS)
-        print(clock.get_fps())
+
 
 pygame.quit()
