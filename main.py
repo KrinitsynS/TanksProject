@@ -47,6 +47,7 @@ BULLET_DAMAGE = [1, 1, 2, 3, 2, 2, 3, 4]
 SHOT_DELAY = [60, 50, 30, 40, 30, 25, 25, 30]
 
 
+'Отображение здоровья танка'
 class UI:
     def __init__(self):
         pass
@@ -95,7 +96,8 @@ class Tank:
         self.rank = 0
         self.image = pygame.transform.rotate(imgTanks[self.rank], -self.direct * 90)
         self.rect = self.image.get_rect(center=self.rect.center)
-
+    
+    'Обновление параметров танка'
     def update(self):
         self.image = pygame.transform.rotate(imgTanks[self.rank], -self.direct * 90)
         self.image = pygame.transform.scale(self.image, (self.image.get_width() - 5, self.image.get_height() - 5))
@@ -135,14 +137,15 @@ class Tank:
 
     def draw(self):
         window.blit(self.image, self.rect)
-
+    
+    'Получение урона'
     def damage(self, value):
         self.hp -= value
         if self.hp <= 0:
             objects.remove(self)
             print(self.color, 'dead')
 
-'down there was the bullet class'
+'bullet class'
 class Bullet:
     def __init__(self, parent, px, py, dx, dy, damage):
         bullets.append(self)
@@ -169,7 +172,7 @@ class Bullet:
     def draw(self):
         pygame.draw.circle(window, 'yellow', (self.px, self.py), 2)
 
-'down there was a Bang class'
+'Bang class'
 class Bang:
     def __init__(self, px, py):
         objects.append(self)
@@ -182,7 +185,8 @@ class Bang:
         self.frame += 0.2
         if self.frame >= 3:
             objects.remove(self)
-
+    
+    'Отображение взрыва по времени существования'
     def draw(self):
         image = imgBangs[int(self.frame)]
         rect = image.get_rect(center=(self.px, self.py))
@@ -219,7 +223,7 @@ class Bonus:
 
         self.timer = 600
         self.bonusNum = bonusNum
-
+   
     def update(self):
         if self.timer > 0:
             self.timer -= 1
@@ -247,9 +251,11 @@ last_color = ""
 while True:
     bullets = []
     objects = []
+    'Создание танков'
     Tank('blue', randint(200,450), randint(HEIGHT//2+200,HEIGHT), 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
     Tank('red', randint(800,1400) - 200, randint(HEIGHT//2+200,HEIGHT), 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
-
+    
+    'Генерация карты'
     gen_all(50, WIDTH // TILE, HEIGHT // TILE)
     with open('map_world.txt', 'r') as f:
         n = 0
