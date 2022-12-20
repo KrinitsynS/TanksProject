@@ -130,7 +130,8 @@ class Tank:
             Bullet(self, self.rect.centerx, self.rect.centery, dx, dy, self.bulletDamage)
             self.shotTimer = self.shotDelay
 
-        if self.shotTimer > 0: self.shotTimer -= 1
+        if self.shotTimer > 0:
+            self.shotTimer -= 1
 
     def draw(self):
         window.blit(self.image, self.rect)
@@ -179,7 +180,8 @@ class Bang:
 
     def update(self):
         self.frame += 0.2
-        if self.frame >= 3: objects.remove(self)
+        if self.frame >= 3:
+            objects.remove(self)
 
     def draw(self):
         image = imgBangs[int(self.frame)]
@@ -203,7 +205,8 @@ class Block:
 
     def damage(self, value):
         self.hp -= value
-        if self.hp <= 0: objects.remove(self)
+        if self.hp <= 0:
+            objects.remove(self)
 
 'Bonus class'
 class Bonus:
@@ -240,15 +243,13 @@ class Bonus:
             window.blit(self.image, self.rect)
 
 
-
 last_color = ""
 while True:
     bullets = []
     objects = []
     Tank('blue', 300, HEIGHT // 2, 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
     Tank('red', WIDTH - 300, HEIGHT // 2, 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
-    
-    
+
     gen_all(50, WIDTH // TILE, HEIGHT // TILE)
     with open('map_world.txt', 'r') as f:
         n = 0
@@ -285,8 +286,10 @@ while True:
             Bonus(randint(50, WIDTH - 50), randint(50, HEIGHT - 50), randint(0, len(imgBonuses) - 1))
             bonusTimer = randint(120, 240)
 
-        for bullet in bullets: bullet.update()
-        for obj in objects: obj.update()
+        for bullet in bullets:
+            bullet.update()
+        for obj in objects:
+            obj.update()
         ui.update()
 
         window.blit(imgGrass, pygame.Rect(0, 0, WIDTH, HEIGHT))
@@ -301,7 +304,8 @@ while True:
                     obj.draw(imgSand)
                 elif obj.type == 'block':
                     obj.draw(imgBrick)
-        for bullet in bullets: bullet.draw()
+        for bullet in bullets:
+            bullet.draw()
         tanks = 0
         last_color = ""
         for obj in objects:
