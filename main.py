@@ -78,7 +78,7 @@ class Tank:
         self.color = color
         self.rect = pygame.Rect(px, py, TILE, TILE)
         self.direct = direct
-        self.hp = 5
+        self.hp = 8
         self.shotTimer = 0
 
         self.moveSpeed = 2
@@ -248,7 +248,7 @@ while True:
     bullets = []
     objects = []
     Tank('blue', randint(100,400), randint(HEIGHT//4,HEIGHT), 0, (pygame.K_a, pygame.K_d, pygame.K_w, pygame.K_s, pygame.K_SPACE))
-    Tank('red', randint(310,600) - 300, randint(HEIGHT//4,HEIGHT), 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
+    Tank('red', randint(510,800) - 300, randint(HEIGHT//4,HEIGHT), 0, (pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN, pygame.K_RETURN))
 
     gen_all(50, WIDTH // TILE, HEIGHT // TILE)
     with open('map_world.txt', 'r') as f:
